@@ -14,6 +14,7 @@ var app = express()
 
 //middlewares 
 app.use(express.json())
+app.use(express.urlencoded({extended:false}))
 
 //Routing middlewares
 app.use("/students" , require("./routes/students"))
