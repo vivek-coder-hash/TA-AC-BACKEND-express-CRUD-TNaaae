@@ -8,5 +8,5 @@ var userSchema = new Schema({
 }, {timestamps:true})
 
 
-var User =mongoose.model("User" , userSchema)
+var User =mongoose.model("User" , userSchema) // name of model is User which is based on schema named userSchema
 module.exports=User
