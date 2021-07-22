@@ -25,9 +25,12 @@ app.use("/users" , require("./routes/user"))
 
 //Error handling
 app.use((err,req,res)=> {
-    res.send(err)
+    res.send("page not found")
 })
 
+app.use((err ,req,res,next)=> {
+    res.send(err)
+})
 
 //listener
 app.listen(5000 , ()=> {

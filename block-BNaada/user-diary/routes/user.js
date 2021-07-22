@@ -1,25 +1,41 @@
 var express = require("express")
 var router = express.Router()
+var User = require("../models/users")
 
 
-router.get("/" , (req,res)=> {
+router.get("/" , (req,res,next)=> {
     //handle action
-    res.render("user.ejs")
+    //fetch data 
+    User.find({} , (err,users)=> {
+        if (err) return next(err)
+        res.render("user.ejs", {usersKey:users})
+    })
 })
-
-router.post("/" , (req,res)=> {
-    //capture data
-})
-
-router.get("/:id" , (req,res)=> {
-    //single user detail
-})
-
 
 router.get("/new" , (req,res)=> {
     //render create form
     res.render("userForm.ejs")
 })
+
+router.post("/" , (req,res)=> {
+    //capture data
+    User.create(req.body , (err,user)=> {
+        if(err) return res.redirect("/users/new")
+        res.redirect("/")
+    })
+})
+
+router.get("/:id" , (req,res)=> {
+    //single user detail
+    var id = req.params.id
+    User.findById(id,(err,user)=> {
+        if (err) return next(err)
+        res.render("singleUser.ejs" , {user:user})
+    })
+})
+
+
+
 
 
 router.get("/:id/edit" , (req,res)=> {
